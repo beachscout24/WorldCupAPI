@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorldCupAPI.Models;
 
 public partial class Team
 {
-    public int TeamId { get; set; }
+    [Key]
+	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+	public int TeamId { get; set; }
 
-    public string? CountryName { get; set; }
+    public string? CountryName { get; set; } 
 
     public int? ConfederationId { get; set; }
 

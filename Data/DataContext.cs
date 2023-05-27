@@ -29,9 +29,9 @@ public partial class DataContext : DbContext
             entity.ToTable("Confederation");
 
             entity.Property(e => e.ConfederationId).HasColumnName("confederationId");
-            entity.Property(e => e.ConferderationName)
+            entity.Property(e => e.ConfederationName)
                 .HasMaxLength(50)
-                .HasColumnName("conferderationName");
+                .HasColumnName("confederationName");
         });
 
         modelBuilder.Entity<Team>(entity =>

@@ -6,7 +6,7 @@
 
 		Task<Team> GetTeamById(int id);
 
-		Task<int> AddTeam(Team team);
+		Task<Team> AddTeam(Team team);
 
 		Task<bool> EditTeam(Team team);
 

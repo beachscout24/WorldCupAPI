@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WorldCupAPI.Models;
+﻿namespace WorldCupAPI.Models;
 
 public partial class Confederation
 {
     public int ConfederationId { get; set; }
 
-    public string ConferderationName { get; set; } = null!;
+    public string ConfederationName { get; set; } = null!;
 
 }

@@ -10,11 +10,11 @@ namespace WorldCupAPI.Repositories
 		{
 			_dataContext = dataContext;
 		}
-		public async Task<int> AddTeam(Team team)
+		public async Task<Team> AddTeam(Team team)
 		{
 			await _dataContext.Teams.AddAsync(team);
 			await Save();
-			return team.TeamId;
+			return team;
 		}
 
 		public async Task<bool> DeleteTeam(int id)

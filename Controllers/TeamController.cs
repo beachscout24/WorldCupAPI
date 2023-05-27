@@ -4,11 +4,11 @@
 	[ApiController]
 	public class TeamController : ControllerBase
 	{
-		private readonly IWorldCupRepository _worldCupRepository;
+		private readonly ITeamService _teamService;
 
-		public TeamController(IWorldCupRepository worldCupRepository)
+		public TeamController(ITeamService teamService)
 		{
-			_worldCupRepository = worldCupRepository;
+			_teamService = teamService;
 		}
 
 		[HttpGet("GetTeams")]
@@ -16,7 +16,7 @@
 		{
 			try
 			{
-				return Ok(await _worldCupRepository.GetTeams());
+				return Ok(await _teamService.GetTeams());
 			}
 			catch (Exception exc)
 			{
@@ -29,7 +29,7 @@
 		{
 			try
 			{
-				return Ok(await _worldCupRepository.GetTeamById(teamId));
+				return Ok(await _teamService.GetTeamById(teamId));
 			}
 			catch (Exception exc)
 			{
@@ -38,12 +38,11 @@
 		}
 
 		[HttpPost("AddTeam")]
-		public async Task<IActionResult> AddTeam(Team newTeam)
+		public async Task<IActionResult> AddTeam(TeamRequestDto newTeam)
 		{
 			try
 			{
-				var teamId = await _worldCupRepository.AddTeam(newTeam);
-				return Ok(await _worldCupRepository.GetTeamById(teamId));
+				return Ok(await _teamService.AddTeam(newTeam));
 			}
 			catch (Exception exc)
 			{
@@ -51,19 +50,12 @@
 			}
 		}
 
-		[HttpPut("EditTeam")]
-		public async Task<IActionResult> EditTeam(Team team)
+		[HttpPut("EditTeam/{teamId}")]
+		public async Task<IActionResult> EditTeam(int teamId, UpdatedTeamRequestDto team)
 		{
 			try
 			{
-				if (await _worldCupRepository.EditTeam(team))
-				{
-					return Ok(await _worldCupRepository.GetTeams());
-				}
-				else
-				{
-					return BadRequest($"Team could not be updated for teamID: {team.TeamId}");
-				}
+				return Ok(await _teamService.EditTeam(teamId, team));
 			}
 			catch (Exception exc)
 			{
@@ -76,14 +68,7 @@
 		{
 			try
 			{
-				if (await _worldCupRepository.DeleteTeam(teamId))
-				{
-					return Ok(await _worldCupRepository.GetTeams());
-				}
-				else
-				{
-					return BadRequest($"Team was not deleted with ID: {teamId}");
-				}
+				return Ok(await _teamService.DeleteTeam(teamId));
 			}
 			catch (Exception exc)
 			{
